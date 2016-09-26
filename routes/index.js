@@ -9,9 +9,11 @@ router.get('/', function (req, res, next) {
 router.get('/name', function (req, res, next) {
     account.getName(req, res, next);
 });
+
 router.post('/name', function (req, res, next) {
     account.postName(req, res, next);
 });
+
 router.get('/email', function (req, res, next) {
     account.getEmail(req, res, next);
 });
