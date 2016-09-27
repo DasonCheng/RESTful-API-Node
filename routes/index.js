@@ -12,8 +12,11 @@ router.get('/name', function (req, res, next) {
 router.get('/name/:id', function (req, res, next) {
     accountController.name_id(req, res, next);
 });
-router.post('/account/signup',function (req, res, next) {
+router.post('/account/signup', function (req, res, next) {
     accountController.addUser(req, res, next);
+});
+router.post('/account/test', function (req, res, next) {
+    res.json(req.body)
 });
 
 module.exports = router;

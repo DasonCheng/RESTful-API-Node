@@ -1,7 +1,18 @@
+var jsSHA = require("jssha");
 var accountModel = require('../models/account.model');
+var salting = require('../config/hash');
 module.exports = {
     addUser: function (req, res, next) {
-        var user = [111111, '111111', '111111@gmail.com', 'sdkhfuiwerhiwskbdgjswshe'];
+        var shaObj = new jsSHA("SHA-512", "TEXT");
+        shaObj.update(req.params.pwd + salting.strong);
+        var hash = shaObj.getHash("HEX");
+        var user = {
+            id: req.params.id,
+            name: req.params.name,
+            email: req.params.email,
+            pwd: hash
+        };
+        console.log(user);
         accountModel.insertUser(user, function (err, data) {
             if (err) {
                 return res.status(400).send({

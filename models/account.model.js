@@ -3,8 +3,8 @@ module.exports = {
     insertUser: function (params, callback) {
         pool.getConnection(function (err, connection) {
             if (err) throw err;
-            connection.query('INSERT INTO users (id, name, email, pwd) VALUES (?,?,?,?)', params, function (err, rows) {
-                if (err){
+            connection.query('INSERT INTO users SET ?', params, function (err, rows) {
+                if (err) {
                     callback(true, '');
                 }
                 callback(null, rows)
