@@ -1,5 +1,23 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1= title
+    p Welcome to #{title}
+    script(src='js/jquery.min.js')
+    script.
+        $(function () {
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:3000/account/signup",
+                data: {
+                    id: 909090,
+                    name: '909090',
+                    email: '909090@foxmail.com',
+                    pwd: 'test'
+                },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                }
+            });
+        })

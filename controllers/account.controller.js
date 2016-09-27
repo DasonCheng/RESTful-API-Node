@@ -4,12 +4,12 @@ var salting = require('../config/hash');
 module.exports = {
     addUser: function (req, res, next) {
         var shaObj = new jsSHA("SHA-512", "TEXT");
-        shaObj.update(req.params.pwd + salting.strong);
+        shaObj.update(req.body.pwd + salting.strong);
         var hash = shaObj.getHash("HEX");
         var user = {
-            id: req.params.id,
-            name: req.params.name,
-            email: req.params.email,
+            id: req.body.id,
+            name: req.body.name,
+            email: req.body.email,
             pwd: hash
         };
         console.log(user);
