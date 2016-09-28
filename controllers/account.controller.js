@@ -1,13 +1,36 @@
 var jsSHA = require("jssha");
 var accountModel = require('../models/account.model');
 var salting = require('../config/hash');
+var Achars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+var Bchars = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+function generateId(n) {
+    var res = "", id = "";
+    for (var i = 0; i < n; i++) {
+        if (i == 0) {
+            id = Math.ceil(Math.random() * 8);
+            res += Bchars[id];
+        } else {
+            id = Math.ceil(Math.random() * 9);
+            res += Achars[id];
+        }
+    }
+    if (false) {
+        console.log("id已存在");
+        generateId(n)
+    } else {
+        return res;
+    }
+
+}
+var regEx = /^[a-zA-Z0-9_.]{6,16}$/;
+
 module.exports = {
     addUser: function (req, res, next) {
         var shaObj = new jsSHA("SHA-512", "TEXT");
         shaObj.update(req.body.pwd + salting.strong);
         var hash = shaObj.getHash("HEX");
         var user = {
-            id: req.body.id,
+            id: generateId(6),
             name: req.body.name,
             email: req.body.email,
             pwd: hash
@@ -15,35 +38,12 @@ module.exports = {
         console.log(user);
         accountModel.insertUser(user, function (err, data) {
             if (err) {
-                return res.status(400).send({
-                    message: 'something error'
+                res.status(400).send({
+                    message: '注册失败'
                 });
             } else {
                 res.send(data)
             }
         });
-
-    },
-    name: function (req, res, next) {
-        accountModel.getName(function (err, data) {
-            if (err) {
-                return res.status(400).send({
-                    message: 'something error'
-                });
-            } else {
-                res.json(data)
-            }
-        });
-    },
-    name_id: function (req, res, next) {
-        accountModel.getEmailByid(req.params.id, function (err, data) {
-            if (err) {
-                return res.status(400).send({
-                    message: 'something error'
-                });
-            } else {
-                res.json(data)
-            }
-        });
     }
-}
+};

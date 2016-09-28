@@ -3,21 +3,40 @@ extends layout
 block content
     h1= title
     p Welcome to #{title}
+    form#signUp(action='http://localhost:3000/account/signup', method='POST')
+        table
+            tr
+                td
+                    label(for="name") 用户名：
+                td
+                    input#name(type='text', name='name')
+                td
+                    p.err
+            tr
+                td
+                    label(for="email") 邮箱：
+                td
+                    input#email(type='text', name='email')
+                td
+                    p.err
+            tr
+                td
+                    label(for="pwd") 密码：
+                td
+                    input#pwd(type='password', name='pwd')
+                td
+                    p.err
+            tr
+                td
+                    label(for="pwdd") 重复密码：
+                td
+                    input#pwdd(type='text', name='pwdd')
+                td
+                    p.err
+            tr
+                td
+                    input#view(type='button', value='查看密码')
+                td
+                    input(type='submit', value='Submit')
     script(src='js/jquery.min.js')
-    script.
-        $(function () {
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:3000/account/signup",
-                data: {
-                    id: 909090,
-                    name: '909090',
-                    email: '909090@foxmail.com',
-                    pwd: 'test'
-                },
-                dataType: "json",
-                success: function (data) {
-                    console.log(data)
-                }
-            });
-        })
+    script(src='js/form.js')
