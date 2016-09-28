@@ -30,13 +30,15 @@ block content
                 td
                     label(for="pwdd") 重复密码：
                 td
-                    input#pwdd(type='text', name='pwdd')
+                    input#pwdd(type='password', name='pwdd')
                 td
                     p.err
             tr
                 td
-                    input#view(type='button', value='查看密码')
                 td
-                    input(type='submit', value='Submit')
+                    br
+                    input(type='submit', value='注册')
+                    |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    input#view(type='button', value='查看密码')
     script(src='js/jquery.min.js')
     script(src='js/form.js')
