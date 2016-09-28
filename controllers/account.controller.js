@@ -14,15 +14,8 @@ function generateId(n) {
             res += Achars[id];
         }
     }
-    if (false) {
-        console.log("id已存在");
-        generateId(n)
-    } else {
-        return res;
-    }
-
+    return res;
 }
-var regEx = /^[a-zA-Z0-9_.]{6,16}$/;
 
 module.exports = {
     addUser: function (req, res, next) {
@@ -35,7 +28,6 @@ module.exports = {
             email: req.body.email,
             pwd: hash
         };
-        console.log(user);
         accountModel.insertUser(user, function (err, data) {
             if (err) {
                 res.status(400).send({
